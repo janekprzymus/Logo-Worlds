@@ -255,9 +255,9 @@ pole3 *dzejson_explore(char *response)
             goto end;
         }
 
-        printf("Payload:x%d: %d\n",i,x->valueint);
-        printf("Payload:y%d: %d\n",i,y->valueint);
-        printf("Payload:Typ pola%d: %s\n",i,type->valuestring);
+        //printf("Payload:x%d: %d\n",i,x->valueint);
+        //printf("Payload:y%d: %d\n",i,y->valueint);
+        //printf("Payload:Typ pola%d: %s\n",i,type->valuestring);
 
         //a->x[i] = malloc(sizeof(int));
         a->x[i]=x->valueint;
