@@ -285,6 +285,34 @@ void wypisz(char plansza[50][50]){
 
 }
 
+void zapisz(char plansza[50][50]){
+    FILE *fout = fopen("plansza.txt", "w");
+    int i, j;
+
+    for(i=0;i<50;i++){
+        for(j=0;j<50;j++){
+            fprintf(fout, "%c", plansza[i][j]);
+        }
+        fprintf(fout, "\n");
+    }
+    fclose(fout);
+}
+
+void wczytaj(char plansza[50][50]){
+    FILE *fin = fopen("plansza.txt", "r");
+    if(fin != NULL){
+        int i, j;
+        char bufor[52];
+        for(i=0;i<50;i++){
+            fgets(bufor, 52, fin);
+            for(j=0;j<50;j++){
+                plansza[i][j]=bufor[j];
+            }
+        }
+    }
+    fclose(fin);
+}
+
 int main(int argc, char **argv)
 {
     /* Program obługuje się poprzez podanie tokena świata jako pierwszy argument linii komend.
@@ -307,6 +335,7 @@ int main(int argc, char **argv)
             plansza[i][j]='.';
         }
     }
+    
 
     if(argc<3){
         response=info(token);
@@ -316,6 +345,7 @@ int main(int argc, char **argv)
         int i;
         for(i=2;i<argc;i++){
             if(strcmp(argv[i],s1)==0){
+                wczytaj(plansza);
                 response=move(token);
                 pole *field = dzejson(response);
                 free(response);
@@ -340,6 +370,7 @@ int main(int argc, char **argv)
                 response=rotate(token,"right");
             }
             else if(strcmp(argv[i],s3)==0){
+                wczytaj(plansza);
                 response=explore(token);
                 pole3 *polee = dzejson_explore(response);
                 free(response);
@@ -372,6 +403,7 @@ int main(int argc, char **argv)
                     plansza[49-polee->y[2]][polee->x[2]]='W';
 
                 wypisz(plansza);
+                zapisz(plansza);
                 for(int i=0;i<3;i++){
                 free(polee->type[i]);
                 }
@@ -379,6 +411,22 @@ int main(int argc, char **argv)
             }
             else if(strcmp(argv[i],s4)==0){
                 response=reset(token);
+                pole *field = dzejson(response);
+                free(response);
+                printf("x: %d\n",field->x);
+                printf("y: %d\n",field->y);
+                printf("Typ pola: %s\n",field->type);
+                if(strcmp(field->type, "grass")==0)
+                    plansza[49-field->y][field->x]='G';
+                if(strcmp(field->type, "sand")==0)
+                    plansza[49-field->y][field->x]='S';
+                if(strcmp(field->type, "wall")==0)
+                    plansza[49-field->y][field->x]='W';
+
+                wypisz(plansza);
+                zapisz(plansza);
+                free(field->type);
+                free(field);
             }
             else
             {
