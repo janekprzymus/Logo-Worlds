@@ -192,29 +192,25 @@ pole *dzejson(char *response)
         goto end;
     }
     payload = cJSON_GetObjectItemCaseSensitive(response_json, "payload");
-    //cJSON_ArrayForEach(field, payload)
-    {
+
         cJSON *current_x = cJSON_GetObjectItemCaseSensitive(payload, "current_x");
         cJSON *current_y = cJSON_GetObjectItemCaseSensitive(payload, "current_y");
         cJSON *field_type = cJSON_GetObjectItemCaseSensitive(payload, "field_type");
 
-        /*if (!cJSON_IsNumber(current_x) || !cJSON_IsNumber(current_y))
+        if (!cJSON_IsNumber(current_x) || !cJSON_IsNumber(current_y))
         {
             goto end;
-        }*/
+        }
 
         //printf("Payload:x: %d\n",current_x->valueint);
         //printf("Payload:y: %d\n",current_y->valueint);
         //printf("Payload:Typ pola: %s\n",field_type->valuestring);
 
         a = malloc(sizeof(pole));
-        //a->x = malloc(sizeof(int));
         a->x=current_x->valueint;
-        //a->y = malloc(sizeof(int));
         a->y=current_y->valueint;
         a->type = (char*) malloc(sizeof(char) * strlen((field_type->valuestring) + 1));
         strcpy(a->type, field_type->valuestring);
-    }
 
 end:
     cJSON_Delete(response_json);
@@ -259,9 +255,7 @@ pole3 *dzejson_explore(char *response)
         //printf("Payload:y%d: %d\n",i,y->valueint);
         //printf("Payload:Typ pola%d: %s\n",i,type->valuestring);
 
-        //a->x[i] = malloc(sizeof(int));
         a->x[i]=x->valueint;
-        //a->y[i] = malloc(sizeof(int));
         a->y[i]=y->valueint;
         a->type[i] = (char*) malloc(sizeof(char) * strlen((type->valuestring) + 1));
         strcpy(a->type[i], type->valuestring);
@@ -302,7 +296,7 @@ void wczytaj(char plansza[50][50]){
     FILE *fin = fopen("plansza.txt", "r");
     if(fin != NULL){
         int i, j;
-        char bufor[52];
+        char bufor[51];
         for(i=0;i<50;i++){
             fgets(bufor, 52, fin);
             for(j=0;j<50;j++){
@@ -361,9 +355,11 @@ int main(int argc, char **argv)
             }
             else if(strcmp(argv[i],s21)==0){
                 response=rotate(token,"left");
+                free(response);
             }
             else if(strcmp(argv[i],s22)==0){
                 response=rotate(token,"right");
+                free(response);
             }
             else if(strcmp(argv[i],s3)==0){
                 response=explore(token);
