@@ -4,6 +4,8 @@
 #include <curl/curl.h>
 #include "../cJSON/cJSON.h"
 
+#define MAX 49
+
 typedef struct _Memory
 {
     char *response;
@@ -77,7 +79,6 @@ char *make_request(char *url){
             printf("%s", chunk.response);
         }
 
-        /* zawsze po sobie sprzątaj */
         response = (char*) malloc(sizeof(char) * strlen((chunk.response) + 1));
         strcpy(response, chunk.response);
         free(chunk.response);
@@ -93,7 +94,7 @@ char *info(char *token) {
     char *response;
     url = (char*) malloc((sizeof(char) * strlen(url1)) + (sizeof(char) *strlen((token) + 1)));
     strcpy(url,url1);
-    strncat(url,token,9);
+    strncat(url,token,10);
     printf("%s\n",url);
     printf("Wyświetlam informacje o świecie %s:\n\n",token);
     response=make_request(url);
@@ -107,7 +108,7 @@ char *move(char *token) {
     char *response;
     url = (char*) malloc((sizeof(char) * strlen(url1)) + (sizeof(char) *strlen((token) + 1)));
     strcpy(url,url1);
-    strncat(url,token,9);
+    strncat(url,token,10);
     printf("%s\n",url);
     printf("Wykonuję ruch.\n\n");
     response=make_request(url);
@@ -121,7 +122,7 @@ char *rotate(char *token, char *direction){
     char *response;
     url = (char*) malloc((sizeof(char) * strlen(url1)) + (sizeof(char) * strlen((token) + 1)) + (sizeof(char) * strlen((direction) + 1)));
     strcpy(url,url1);
-    strncat(url,token,9);
+    strncat(url,token,10);
     strncat(url, "/", 1);
     strncat(url,direction,5);
     printf("%s\n",url);
@@ -140,7 +141,7 @@ char *explore(char *token){
     char *response;
     url = (char*) malloc((sizeof(char) * strlen(url1)) + (sizeof(char) *strlen((token) + 1)));
     strcpy(url,url1);
-    strncat(url,token,9);
+    strncat(url,token,10);
     printf("%s\n",url);
     printf("Eksploruję.\n\n");
     response=make_request(url);
@@ -154,7 +155,7 @@ char *reset(char *token){
     char *response;
     url = (char*) malloc((sizeof(char) * strlen(url1)) + (sizeof(char) *strlen((token) + 1)));
     strcpy(url,url1);
-    strncat(url,token,9);
+    strncat(url,token,10);
     printf("%s\n",url);
     printf("Resetuję świat: %s\n\n",token);
     response=make_request(url);
@@ -202,10 +203,6 @@ pole *dzejson(char *response)
             goto end;
         }
 
-        //printf("Payload:x: %d\n",current_x->valueint);
-        //printf("Payload:y: %d\n",current_y->valueint);
-        //printf("Payload:Typ pola: %s\n",field_type->valuestring);
-
         a = malloc(sizeof(pole));
         a->x=current_x->valueint;
         a->y=current_y->valueint;
@@ -250,10 +247,6 @@ pole3 *dzejson_explore(char *response)
         {
             goto end;
         }
-
-        //printf("Payload:x%d: %d\n",i,x->valueint);
-        //printf("Payload:y%d: %d\n",i,y->valueint);
-        //printf("Payload:Typ pola%d: %s\n",i,type->valuestring);
 
         a->x[i]=x->valueint;
         a->y[i]=y->valueint;
@@ -343,11 +336,11 @@ int main(int argc, char **argv)
                 printf("y: %d\n",field->y);
                 printf("Typ pola: %s\n",field->type);
                 if(strcmp(field->type, "grass")==0)
-                    plansza[49-field->y][field->x]='G';
+                    plansza[MAX-field->y][field->x]='G';
                 if(strcmp(field->type, "sand")==0)
-                    plansza[49-field->y][field->x]='S';
+                    plansza[MAX-field->y][field->x]='S';
                 if(strcmp(field->type, "wall")==0)
-                    plansza[49-field->y][field->x]='W';
+                    plansza[MAX-field->y][field->x]='W';
 
                 wypisz(plansza);
                 free(field->type);
@@ -375,23 +368,23 @@ int main(int argc, char **argv)
                 printf("y_2: %d\n",polee->y[2]);
                 printf("Typ pola 2: %s\n",polee->type[2]);
                 if(strcmp(polee->type[0], "grass")==0)
-                    plansza[49-polee->y[0]][polee->x[0]]='G';
+                    plansza[MAX-polee->y[0]][polee->x[0]]='G';
                 if(strcmp(polee->type[1], "grass")==0)
-                    plansza[49-polee->y[1]][polee->x[1]]='G';
+                    plansza[MAX-polee->y[1]][polee->x[1]]='G';
                 if(strcmp(polee->type[2], "grass")==0)
-                    plansza[49-polee->y[2]][polee->x[2]]='G';
+                    plansza[MAX-polee->y[2]][polee->x[2]]='G';
                 if(strcmp(polee->type[0], "sand")==0)
-                    plansza[49-polee->y[0]][polee->x[0]]='S';
+                    plansza[MAX-polee->y[0]][polee->x[0]]='S';
                 if(strcmp(polee->type[1], "sand")==0)
-                    plansza[49-polee->y[1]][polee->x[1]]='S';
+                    plansza[MAX-polee->y[1]][polee->x[1]]='S';
                 if(strcmp(polee->type[2], "sand")==0)
-                    plansza[49-polee->y[2]][polee->x[2]]='S';
+                    plansza[MAX-polee->y[2]][polee->x[2]]='S';
                 if(strcmp(polee->type[0], "wall")==0)
-                    plansza[49-polee->y[0]][polee->x[0]]='W';
+                    plansza[MAX-polee->y[0]][polee->x[0]]='W';
                 if(strcmp(polee->type[1], "wall")==0)
-                    plansza[49-polee->y[1]][polee->x[1]]='W';
+                    plansza[MAX-polee->y[1]][polee->x[1]]='W';
                 if(strcmp(polee->type[2], "wall")==0)
-                    plansza[49-polee->y[2]][polee->x[2]]='W';
+                    plansza[MAX-polee->y[2]][polee->x[2]]='W';
 
                 wypisz(plansza);
                 for(int i=0;i<3;i++){
@@ -412,11 +405,11 @@ int main(int argc, char **argv)
                 printf("y: %d\n",field->y);
                 printf("Typ pola: %s\n",field->type);
                 if(strcmp(field->type, "grass")==0)
-                    plansza[49-field->y][field->x]='G';
+                    plansza[MAX-field->y][field->x]='G';
                 if(strcmp(field->type, "sand")==0)
-                    plansza[49-field->y][field->x]='S';
+                    plansza[MAX-field->y][field->x]='S';
                 if(strcmp(field->type, "wall")==0)
-                    plansza[49-field->y][field->x]='W';
+                    plansza[MAX-field->y][field->x]='W';
 
                 wypisz(plansza);
                 free(field->type);
