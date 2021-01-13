@@ -113,7 +113,7 @@ char *rotate(char *token, char *direction){
     char *response;
     strncat(url,token,10);
     strncat(url, "/", 1);
-    strncat(url,direction,5);
+    strncat(url,direction,10);
     printf("%s\n",url);
     if(strcmp(direction, "left")==0)
         printf("Obracam w lewo.\n\n");
