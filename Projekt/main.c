@@ -265,7 +265,7 @@ void zapisz(char plansza[50][50]){
     fclose(fout);
 }
 
-void wczytaj(char plansza[50][50]){
+int wczytaj(char plansza[50][50]){
     FILE *fin = fopen("plansza.txt", "r");
     if(fin != NULL){
         int i, j;
@@ -276,8 +276,16 @@ void wczytaj(char plansza[50][50]){
                 plansza[i][j]=bufor[j];
             }
         }
+        fclose(fin);
+        return 1;
     }
-    fclose(fin);
+    else
+    {
+        fclose(fin);
+        return 0;
+    }
+    
+    
 }
 
 int main(int argc, char **argv)
@@ -298,7 +306,14 @@ int main(int argc, char **argv)
     char plansza[50][50];
     int i,j;
     
-    wczytaj(plansza);
+    if(wczytaj(plansza)==0)
+    {
+        for(i=0;i<50;i++){
+                    for(j=0;j<50;j++){
+                        plansza[i][j]='.';
+                    }
+                }
+    }
     
 
     if(argc<3){
