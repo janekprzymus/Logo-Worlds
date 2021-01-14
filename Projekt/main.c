@@ -296,7 +296,6 @@ int main(int argc, char **argv)
     ("M" - ruch, "Rleft" - obrot w lewo, "Rright" - obrot w prawo, "E" - eksploracja) */ 
     char *url;
     char *token;
-    char *response;
     char *s1="M";
     char *s21="Rleft";
     char *s22="Rright";
@@ -304,25 +303,29 @@ int main(int argc, char **argv)
     char *s4="reset";
     token=argv[1];
     char plansza[50][50];
-    int i,j;
+    int i, j;
     
     if(wczytaj(plansza)==0)
     {
         for(i=0;i<50;i++){
-                    for(j=0;j<50;j++){
-                        plansza[i][j]='.';
-                    }
-                }
+            for(j=0;j<50;j++){
+                plansza[i][j]='.';
+            }
+        }
     }
     
 
     if(argc<3){
+        char *response;
         response=info(token);
+        free(response);
+        wypisz(plansza);
     }
     else
     {
         int i;
         for(i=2;i<argc;i++){
+            char *response;
             if(strcmp(argv[i],s1)==0){
                 response=move(token);
                 pole *field = dzejson(response);
@@ -337,7 +340,6 @@ int main(int argc, char **argv)
                 if(strcmp(field->type, "wall")==0)
                     plansza[MAX-field->y][field->x]='W';
 
-                wypisz(plansza);
                 free(field->type);
                 free(field);
             }
@@ -381,7 +383,6 @@ int main(int argc, char **argv)
                 if(strcmp(polee->type[2], "wall")==0)
                     plansza[MAX-polee->y[2]][polee->x[2]]='W';
 
-                wypisz(plansza);
                 for(int i=0;i<3;i++){
                 free(polee->type[i]);
                 }
@@ -406,7 +407,6 @@ int main(int argc, char **argv)
                 if(strcmp(field->type, "wall")==0)
                     plansza[MAX-field->y][field->x]='W';
 
-                wypisz(plansza);
                 free(field->type);
                 free(field);
             }
@@ -415,7 +415,7 @@ int main(int argc, char **argv)
                 printf("\nBłąd: nieznana komenda!\n");
                 exit(-1);
             }
-            
+            wypisz(plansza);
         }
     }
     
