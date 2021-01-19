@@ -48,7 +48,7 @@ char *make_request(char *url){
     Memory chunk;
     chunk.size = 0;
     chunk.response = NULL;
-    char *response = NULL;
+    //char *response = NULL;
 
     curl = curl_easy_init();
     if (curl)
@@ -79,13 +79,13 @@ char *make_request(char *url){
             printf("%s", chunk.response);
         }
 
-        response = (char*) malloc(sizeof(char) * strlen((chunk.response) + 1));
-        strcpy(response, chunk.response);
-        free(chunk.response);
+        //response = (char*) malloc(sizeof(char) * strlen((chunk.response) + 1));
+        //strcpy(response, chunk.response);
+        //free(chunk.response);
         curl_easy_cleanup(curl);
 
     }
-    return response;
+    return chunk.response;
 }
 
 char *info(char *token) {
@@ -112,7 +112,7 @@ char *rotate(char *token, char *direction){
     char url[255]="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/";
     char *response;
     strncat(url,token,10);
-    strncat(url, "/", 1);
+    strncat(url, "/", 2);
     strncat(url,direction,10);
     printf("%s\n",url);
     if(strcmp(direction, "left")==0)
