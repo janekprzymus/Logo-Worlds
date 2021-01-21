@@ -186,7 +186,7 @@ pole *dzejson(char *response)
         a = malloc(sizeof(pole));
         a->x=current_x->valueint;
         a->y=current_y->valueint;
-        a->type = (char*) malloc(sizeof(char) * strlen((field_type->valuestring) + 1));
+        a->type = (char*) malloc(sizeof(char) * (strlen(field_type->valuestring) + 1));
         strcpy(a->type, field_type->valuestring);
 
 end:
@@ -230,7 +230,7 @@ pole3 *dzejson_explore(char *response)
 
         a->x[i]=x->valueint;
         a->y[i]=y->valueint;
-        a->type[i] = (char*) malloc(sizeof(char) * strlen((type->valuestring) + 1));
+        a->type[i] = (char*) malloc(sizeof(char) * (strlen(type->valuestring) + 1));
         strcpy(a->type[i], type->valuestring);
         i++;
     }
