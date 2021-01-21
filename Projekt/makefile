@@ -5,9 +5,6 @@ clean:
 	rm -f a.out
 	rm -f plansza.txt
 
-//Przy uruchamianiu programu za pomocą makefile należy po komendzie wpisać kod świata!!
-//Np. make reset qwerty_27
-
 reset: all
 	./a.out $(filter-out $@,$(MAKECMDGOALS)) reset
 
