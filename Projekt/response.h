@@ -3,13 +3,6 @@
 
 #include "def.h"
 
-typedef struct _pole
-{
-    int x;
-    int y;
-    char *type;
-} pole;
-
 typedef struct _pole3
 {
     int x[3];
@@ -25,8 +18,7 @@ typedef struct _current
     char *direction;
 }   current;
 
-pole *dzejson(char *response);
+current *dzejson(char *response);
 pole3 *dzejson_explore(char *response);
-current *dzejson_current(char *response);
 
 #endif

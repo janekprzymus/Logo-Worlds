@@ -37,7 +37,7 @@ int main(int argc, char **argv)
             char *response;
             if(strcmp(argv[k],s1)==0){
                 response=move(token);
-                pole *field = dzejson(response);
+                current *field = dzejson(response);
                 free(response);
                 printf("x: %d\n",field->x);
                 printf("y: %d\n",field->y);
@@ -50,6 +50,7 @@ int main(int argc, char **argv)
                     plansza[MAX-field->y][field->x]='W';
 
                 free(field->type);
+                free(field->direction);
                 free(field);
             }
             else if(strcmp(argv[k],s21)==0){
@@ -87,7 +88,7 @@ int main(int argc, char **argv)
                     }
                 }
                 response=reset(token);
-                pole *field = dzejson(response);
+                current *field = dzejson(response);
                 free(response);
                 printf("x: %d\n",field->x);
                 printf("y: %d\n",field->y);
@@ -100,6 +101,7 @@ int main(int argc, char **argv)
                     plansza[MAX-field->y][field->x]='W';
 
                 free(field->type);
+                free(field->direction);
                 free(field);
             }
             else

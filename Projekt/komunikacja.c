@@ -36,7 +36,6 @@ char *make_request(char *url){
     Memory chunk;
     chunk.size = 0;
     chunk.response = NULL;
-    //char *response = NULL;
 
     curl = curl_easy_init();
     if (curl)
@@ -67,9 +66,6 @@ char *make_request(char *url){
             printf("%s", chunk.response);
         }
 
-        //response = (char*) malloc(sizeof(char) * strlen((chunk.response) + 1));
-        //strcpy(response, chunk.response);
-        //free(chunk.response);
         curl_easy_cleanup(curl);
 
     }

@@ -49,7 +49,7 @@ int wczytaj(char plansza[50][50]){
 void mark_current(char plansza[50][50], char *token){
     int i, j;
     char *response = info(token);
-    current *field = dzejson_current(response);
+    current *field = dzejson(response);
     free(response);
     for(i=0; i<50; i++){
         for(j=0; j<50; j++){
