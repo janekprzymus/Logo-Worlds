@@ -9,10 +9,4 @@
 
 #define MAX 49
 
-typedef struct _Memory
-{
-    char *response;
-    size_t size;
-} Memory;
-
 #endif
