@@ -7,6 +7,7 @@
 void wypisz(char plansza[50][50]);
 void zapisz(char plansza[50][50]);
 int wczytaj(char plansza[50][50]);
-void mark_current(char plansza[50][50], char *token);
+void mark_current(char plansza[50][50], char *token, int to_do);
+void show_fields(char plansza[50][50], char *token);
 
 #endif
