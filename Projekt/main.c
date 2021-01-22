@@ -28,9 +28,7 @@ int main(int argc, char **argv)
     
 
     if(argc<3){
-        char *response;
-        response=info(token);
-        free(response);
+        mark_current(plansza, token);
         wypisz(plansza);
     }
     else
