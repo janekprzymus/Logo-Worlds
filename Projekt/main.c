@@ -1,5 +1,3 @@
-#include "komunikacja.h"
-#include "response.h"
 #include "mapa.h"
 
 int main(int argc, char **argv)
@@ -111,6 +109,7 @@ int main(int argc, char **argv)
                 printf("\nBłąd: nieznana komenda!\n");
                 exit(-1);
             }
+            mark_current(plansza, token);
             wypisz(plansza);
         }
     }

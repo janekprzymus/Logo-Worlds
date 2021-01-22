@@ -45,3 +45,30 @@ int wczytaj(char plansza[50][50]){
         return 0;
     }
 }
+
+void mark_current(char plansza[50][50], char *token){
+    int i, j;
+    char *response = info(token);
+    current *field = dzejson_current(response);
+    free(response);
+    for(i=0; i<50; i++){
+        for(j=0; j<50; j++){
+            if(plansza[i][j]=='g')
+                plansza[i][j]='G';
+            if(plansza[i][j]=='s')
+                plansza[i][j]='S';
+            if(plansza[i][j]=='w')
+                plansza[i][j]='W';
+        }
+    }
+
+    if(strcmp(field->type, "grass")==0)
+        plansza[MAX-field->y][field->x]='g';
+    if(strcmp(field->type, "sand")==0)
+        plansza[MAX-field->y][field->x]='s';
+    if(strcmp(field->type, "wall")==0)
+        plansza[MAX-field->y][field->x]='w';
+    free(field->type);
+    free(field->direction);
+    free(field);
+}

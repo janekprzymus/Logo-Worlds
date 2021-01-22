@@ -17,7 +17,16 @@ typedef struct _pole3
     char *type[3];
 }   pole3;
 
+typedef struct _current
+{
+    int x;
+    int y;
+    char *type;
+    char *direction;
+}   current;
+
 pole *dzejson(char *response);
 pole3 *dzejson_explore(char *response);
+current *dzejson_current(char *response);
 
 #endif
