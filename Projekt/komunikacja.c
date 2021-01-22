@@ -81,7 +81,7 @@ char *info(char *token) {
     char *response;
     strncat(url,token,10);
     printf("%s\n",url);
-    printf("Wyświetlam informacje o świecie %s:\n\n",token);
+    printf("Wyświetlam informacje o położeniu dla świata %s:\n\n",token);
     response=make_request(url);
     return response;
 }
