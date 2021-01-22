@@ -37,10 +37,9 @@ int main(int argc, char **argv)
     }
     else
     {
-        int i;
-        for(i=2;i<argc;i++){
+        for(int k=2;k<argc;k++){
             char *response;
-            if(strcmp(argv[i],s1)==0){
+            if(strcmp(argv[k],s1)==0){
                 response=move(token);
                 pole *field = dzejson(response);
                 free(response);
@@ -57,52 +56,35 @@ int main(int argc, char **argv)
                 free(field->type);
                 free(field);
             }
-            else if(strcmp(argv[i],s21)==0){
+            else if(strcmp(argv[k],s21)==0){
                 response=rotate(token,"left");
                 free(response);
             }
-            else if(strcmp(argv[i],s22)==0){
+            else if(strcmp(argv[k],s22)==0){
                 response=rotate(token,"right");
                 free(response);
             }
-            else if(strcmp(argv[i],s3)==0){
+            else if(strcmp(argv[k],s3)==0){
                 response=explore(token);
                 pole3 *polee = dzejson_explore(response);
                 free(response);
-                printf("x_0: %d\n",polee->x[0]);
-                printf("y_0: %d\n",polee->y[0]);
-                printf("Typ pola 0: %s\n",polee->type[0]);
-                printf("x_1: %d\n",polee->x[1]);
-                printf("y_1: %d\n",polee->y[1]);
-                printf("Typ pola 1: %s\n",polee->type[1]);
-                printf("x_2: %d\n",polee->x[2]);
-                printf("y_2: %d\n",polee->y[2]);
-                printf("Typ pola 2: %s\n",polee->type[2]);
-                if(strcmp(polee->type[0], "grass")==0)
-                    plansza[MAX-polee->y[0]][polee->x[0]]='G';
-                if(strcmp(polee->type[1], "grass")==0)
-                    plansza[MAX-polee->y[1]][polee->x[1]]='G';
-                if(strcmp(polee->type[2], "grass")==0)
-                    plansza[MAX-polee->y[2]][polee->x[2]]='G';
-                if(strcmp(polee->type[0], "sand")==0)
-                    plansza[MAX-polee->y[0]][polee->x[0]]='S';
-                if(strcmp(polee->type[1], "sand")==0)
-                    plansza[MAX-polee->y[1]][polee->x[1]]='S';
-                if(strcmp(polee->type[2], "sand")==0)
-                    plansza[MAX-polee->y[2]][polee->x[2]]='S';
-                if(strcmp(polee->type[0], "wall")==0)
-                    plansza[MAX-polee->y[0]][polee->x[0]]='W';
-                if(strcmp(polee->type[1], "wall")==0)
-                    plansza[MAX-polee->y[1]][polee->x[1]]='W';
-                if(strcmp(polee->type[2], "wall")==0)
-                    plansza[MAX-polee->y[2]][polee->x[2]]='W';
-
-                for(int i=0;i<3;i++){
+                for(i=0; i<3; i++){
+                    printf("x_%d: %d\n", i, polee->x[i]);
+                    printf("y_%d: %d\n", i, polee->y[i]);
+                    printf("Typ pola %d: %s\n", i, polee->type[i]);
+                    if(strcmp(polee->type[i], "grass")==0)
+                        plansza[MAX-polee->y[i]][polee->x[i]]='G';
+                    if(strcmp(polee->type[i], "sand")==0)
+                        plansza[MAX-polee->y[i]][polee->x[i]]='S';
+                    if(strcmp(polee->type[i], "wall")==0)
+                        plansza[MAX-polee->y[i]][polee->x[i]]='W';
+                }
+                for(i=0; i<3; i++){
                 free(polee->type[i]);
                 }
                 free(polee);
             }
-            else if(strcmp(argv[i],s4)==0){
+            else if(strcmp(argv[k],s4)==0){
                 for(i=0;i<50;i++){
                     for(j=0;j<50;j++){
                         plansza[i][j]='.';
