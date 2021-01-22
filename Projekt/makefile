@@ -1,24 +1,29 @@
-all:
-	gcc main.c -lcurl ../cJSON/cjson.o
+PLIKI=main.o komunikacja.o response.o mapa.o
+
+all: $(PLIKI)
+	gcc $(PLIKI) -lcurl -o logo-worlds ../../cJSON/cjson.o -Wall --pedantic
+
+%.o:%.c
+	cc -c $^ -o $@
 
 clean:
-	rm -f a.out
-	rm -f plansza.txt
+	rm -f logo-worlds
+	rm -f *.o
 
 reset: all
-	./a.out $(filter-out $@,$(MAKECMDGOALS)) reset
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) reset
 
 info: all
-	./a.out $(filter-out $@,$(MAKECMDGOALS))
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS))
 
 move: all
-	./a.out $(filter-out $@,$(MAKECMDGOALS)) M
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) M
 
 explore: all
-	./a.out $(filter-out $@,$(MAKECMDGOALS)) E
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) E
 
 rright: all
-	./a.out $(filter-out $@,$(MAKECMDGOALS)) Rright
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) Rright
 
 rleft: all
-	./a.out $(filter-out $@,$(MAKECMDGOALS)) Rleft
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) Rleft
