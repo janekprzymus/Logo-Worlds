@@ -55,6 +55,12 @@ void mark_current(char plansza[50][50], char *token, int to_do){
     if(to_do==1){
         response = move(token);
     }
+    if(to_do==21){
+        response = rotate(token, "left");
+    }
+    if(to_do==22){
+        response = rotate(token, "right");
+    }
     if(to_do==4){
         response = reset(token);
     }

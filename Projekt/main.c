@@ -38,16 +38,10 @@ int main(int argc, char **argv)
                 mark_current(plansza, token, 1);
             }
             else if(strcmp(argv[k],s21)==0){
-                char *response;
-                response=rotate(token,"left");
-                free(response);
-                mark_current(plansza, token, 0);
+                mark_current(plansza, token, 21);
             }
             else if(strcmp(argv[k],s22)==0){
-                char *response;
-                response=rotate(token,"right");
-                free(response);
-                mark_current(plansza, token, 0);
+                mark_current(plansza, token, 22);
             }
             else if(strcmp(argv[k],s3)==0){
                 show_fields(plansza, token);
