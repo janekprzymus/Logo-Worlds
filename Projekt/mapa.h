@@ -4,9 +4,9 @@
 #include "response.h"
 #include "komunikacja.h"
 
-void wypisz(char plansza[50][50]);
-void zapisz(char plansza[50][50]);
-int wczytaj(char plansza[50][50]);
+void write(char plansza[50][50]);
+void save(char plansza[50][50]);
+int load(char plansza[50][50]);
 void mark_current(char plansza[50][50], char *token, int to_do);
 void show_fields(char plansza[50][50], char *token);
 

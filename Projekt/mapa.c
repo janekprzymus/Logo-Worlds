@@ -1,6 +1,6 @@
 #include "mapa.h"
 
-void wypisz(char plansza[50][50]){
+void write(char plansza[50][50]){
     int i, j;
 
     for(i=0;i<50;i++){
@@ -12,7 +12,7 @@ void wypisz(char plansza[50][50]){
 
 }
 
-void zapisz(char plansza[50][50]){
+void save(char plansza[50][50]){
     FILE *fout = fopen("plansza.txt", "w");
     int i, j;
 
@@ -25,7 +25,7 @@ void zapisz(char plansza[50][50]){
     fclose(fout);
 }
 
-int wczytaj(char plansza[50][50]){
+int load(char plansza[50][50]){
     FILE *fin = fopen("plansza.txt", "r");
     if(fin != NULL){
         int i, j;
@@ -59,7 +59,7 @@ void mark_current(char plansza[50][50], char *token, int to_do){
         response = reset(token);
     }
 
-    current *field = dzejson(response);
+    current *field = read_response(response);
     free(response);
     for(i=0; i<50; i++){
         for(j=0; j<50; j++){
@@ -87,7 +87,7 @@ void show_fields(char plansza[50][50], char *token){
     int i;
     char *response;
     response=explore(token);
-    pole3 *polee = dzejson_explore(response);
+    fields3 *polee = read_response_explore(response);
     free(response);
     for(i=0; i<3; i++){
         printf("x_%d: %d\n", i, polee->x[i]);

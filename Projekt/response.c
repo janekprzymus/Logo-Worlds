@@ -1,6 +1,6 @@
 #include "response.h"
 
-current *dzejson(char *response)
+current *read_response(char *response)
 {
     current *a;
     const cJSON *status = NULL;
@@ -40,9 +40,9 @@ end:
     return a;
 }
 
-pole3 *dzejson_explore(char *response)
+fields3 *read_response_explore(char *response)
 {
-    pole3 *a = NULL;
+    fields3 *a = NULL;
     int i=0;
     const cJSON *status = NULL;
     const cJSON *payload = NULL;
@@ -62,7 +62,7 @@ pole3 *dzejson_explore(char *response)
     status = cJSON_GetObjectItemCaseSensitive(response_json, "status");
     payload = cJSON_GetObjectItemCaseSensitive(response_json, "payload");
     list = cJSON_GetObjectItemCaseSensitive(payload, "list");
-    a = malloc(sizeof(pole3));
+    a = malloc(sizeof(fields3));
     cJSON_ArrayForEach(field, list)
     {
         cJSON *x = cJSON_GetObjectItemCaseSensitive(field, "x");

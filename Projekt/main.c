@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     char plansza[50][50];
     int i, j;
     
-    if(wczytaj(plansza)==0)
+    if(load(plansza)==0)
     {
         for(i=0;i<50;i++){
             for(j=0;j<50;j++){
@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 
     if(argc<3){
         mark_current(plansza, token, 0);
-        wypisz(plansza);
+        write(plansza);
     }
     else
     {
@@ -65,10 +65,10 @@ int main(int argc, char **argv)
                 printf("\nBłąd: nieznana komenda!\n");
                 exit(-1);
             }
-            wypisz(plansza);
+            write(plansza);
         }
     }
     
-    zapisz(plansza);
+    save(plansza);
     return 0;
 }
