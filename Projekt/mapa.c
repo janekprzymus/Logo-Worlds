@@ -84,9 +84,8 @@ void mark_current(char plansza[50][50], char *token, int to_do){
         plansza[MAX-field->y][field->x]='s';
     if(strcmp(field->type, "wall")==0)
         plansza[MAX-field->y][field->x]='w';
-    free(field->type);
-    free(field->direction);
-    free(field);
+    
+    free_game_state(field);
 }
 
 void show_fields(char plansza[50][50], char *token){
@@ -106,8 +105,6 @@ void show_fields(char plansza[50][50], char *token){
         if(strcmp(polee->type[i], "wall")==0)
             plansza[MAX-polee->y[i]][polee->x[i]]='W';
     }
-    for(i=0; i<3; i++){
-    free(polee->type[i]);
-    }
-    free(polee);
+    
+    free_game_state_explore(polee);
 }

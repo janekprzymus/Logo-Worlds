@@ -85,3 +85,16 @@ end:
     cJSON_Delete(response_json);
     return a;
 }
+
+void free_game_state(current *g){
+    free(g->type);
+    free(g->direction);
+    free(g);
+}
+
+void free_game_state_explore(fields3 *g){
+    for(int i=0; i<3; i++){
+    free(g->type[i]);
+    }
+    free(g);
+}

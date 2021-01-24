@@ -20,5 +20,7 @@ typedef struct _current
 
 current *read_response(char *response);
 fields3 *read_response_explore(char *response);
+void free_game_state(current *g);
+void free_game_state_explore(fields3 *g);
 
 #endif
