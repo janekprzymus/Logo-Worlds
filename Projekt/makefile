@@ -1,4 +1,4 @@
-PLIKI=main.o komunikacja.o response.o mapa.o
+PLIKI=main.o komunikacja.o response.o mapa.o logika.o
 
 all: $(PLIKI)
 	gcc $(PLIKI) -lcurl -o logo-worlds ../../cJSON/cjson.o -Wall --pedantic

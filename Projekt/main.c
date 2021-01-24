@@ -1,4 +1,5 @@
 #include "mapa.h"
+#include "logika.h"
 
 int main(int argc, char **argv)
 {
