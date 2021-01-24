@@ -10,20 +10,11 @@ clean:
 	rm -f logo-worlds
 	rm -f *.o
 
+test: all
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS))
+
 reset: all
 	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) reset
 
-info: all
-	./logo-worlds $(filter-out $@,$(MAKECMDGOALS))
-
-move: all
-	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) M
-
-explore: all
-	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) E
-
-rright: all
-	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) Rright
-
-rleft: all
-	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) Rleft
+play: all
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) play

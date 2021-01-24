@@ -7,6 +7,4 @@
 #include <curl/curl.h>
 #include "../../cJSON/cJSON.h"
 
-#define MAX 49
-
 #endif

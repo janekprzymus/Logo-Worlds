@@ -1,47 +1,152 @@
 #include "mapa.h"
 
-void write(char plansza[50][50]){
+void write(map *m){
     int i, j;
 
-    for(i=0;i<50;i++){
-        for(j=0;j<50;j++){
-            printf("%2c", plansza[i][j]);
+    for(i = m->wiersze-1; i>=0; i--){
+        if(i==m->wiersze-1){
+            printf("  ");
+            for(j=0; j<m->kolumny; j++)
+                printf("%2d", j+1);
+            printf("\n");
+        }
+        for(j=0; j<m->kolumny; j++){
+            if(j==0)
+                printf("%2d", i+1);
+            printf("%2c", m->plansza[i][j]);
         }
         printf("\n");
     }
 
 }
 
-void save(char plansza[50][50]){
+void save(map *m){
     FILE *fout = fopen("plansza.txt", "w");
     int i, j;
 
-    for(i=0;i<50;i++){
-        for(j=0;j<50;j++){
-            fprintf(fout, "%c", plansza[i][j]);
+    fprintf(fout, "%d\n%d\n", m->wiersze, m->kolumny);
+
+    for(i = m->wiersze-1; i>=0; i--){
+        for(j=0; j<m->kolumny; j++){
+            fprintf(fout, "%c", m->plansza[i][j]);
         }
         fprintf(fout, "\n");
     }
     fclose(fout);
 }
 
-int load(char plansza[50][50]){
+map *load(){
     FILE *fin = fopen("plansza.txt", "r");
-    if(fin != NULL){
-        int i, j;
-        char bufor[51];
-        for(i=0;i<50;i++){
-            fgets(bufor, 52, fin);
-            for(j=0;j<50;j++){
-                plansza[i][j]=bufor[j];
-            }
+    int i, j;
+    char bufor[99];
+    map *m;
+    fscanf(fin, "%d%d", &m->wiersze, &m->kolumny);
+    for(i = m->wiersze-1; i>=0; i--){
+        fgets(bufor, 100, fin);
+        for(j=0; j<m->kolumny; j++){
+            m->plansza[i][j]=bufor[j];
         }
-        fclose(fin);
-        return 1;
     }
-    else
+    fclose(fin);
+    return m;
+}
+
+void alloc_map_memory(map *m, int wiersze, int kolumny){
+    m->wiersze=wiersze;
+    m->kolumny=kolumny;
+    
+    m->plansza = (char**) malloc(sizeof(char*) * wiersze);
+    for (int i=wiersze-1; i>=0; i--) 
     {
-        fclose(fin);
-        return 0;
+        m->plansza[i] = (char*) malloc(sizeof(char) * kolumny);
+        for (int j=0; j<kolumny; j++){
+            m->plansza[i][j] = j+1+i;
+        }
     }
+    
+}
+
+map *map_init(map *m){   
+    m = (map*) malloc(sizeof(map));
+    alloc_map_memory(m, N, N);
+    m->p = 2;
+    m->q = 2;
+
+    for(int i=N-1; i>=0; i--){
+        for(int j=0; j<N; j++)
+            m->plansza[i][j]='.';
+    }
+
+    return m;
+} 
+
+void move_map(map *new, map *m, int dx, int dy){   
+    int i, j;
+    for (i = new->wiersze-1; i>=0; i--){
+        for (j=0; j<new->kolumny; j++){   
+            new->plansza[i][j]='.';
+        }
+    }
+
+    for (i = m->wiersze-1; i>=0; i--){
+        for (j=0; j < m->kolumny; j++){
+            new->plansza[i+dy][j+dx] = m->plansza[i][j];
+        }
+    }
+
+    new->p = m->p+dx;
+    new->q = m->q+dy;
+}
+
+void free_map(map *m){
+    int i, j;
+    for(i=0; i<m->wiersze; i++){
+        free(m->plansza[i]);
+    }
+    free(m->plansza);
+    free(m);
+}
+
+map *new_segment_north(map *m){
+    map *new = (map*) malloc(sizeof(map));
+    alloc_map_memory(new, m->wiersze+N, m->kolumny);
+    move_map(new, m, 0, 0);
+    new->x_start = m->x_start;
+    new->y_start = m->y_start;
+    free_map(m);
+    
+    return new;
+}
+
+map *new_segment_south(map *m){
+    map *new = (map*) malloc(sizeof(map));
+    alloc_map_memory(new, m->wiersze+N, m->kolumny);
+    move_map(new, m, 0, N);
+    new->x_start = m->x_start;
+    new->y_start = m->y_start;
+    free_map(m);
+    
+    return new;
+}
+
+map *new_segment_west(map *m){
+    map *new = (map*) malloc(sizeof(map));
+    alloc_map_memory(new, m->wiersze, m->kolumny+N);
+    move_map(new, m, N, 0);
+    new->x_start = m->x_start;
+    new->y_start = m->y_start;
+    free_map(m);
+    
+    return new;
+}
+
+map *new_segment_east(map *m){
+    map *new = (map*) malloc(sizeof(map));
+    alloc_map_memory(new, m->wiersze, m->kolumny+N);
+    move_map(new, m, 0, 0);
+    new->x_start = m->x_start;
+    new->y_start = m->y_start;
+    free_map(m);
+    
+    return new;
 }
