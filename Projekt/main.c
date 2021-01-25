@@ -6,7 +6,7 @@ int main(int argc, char **argv)
     Następnym argumentem będzie rodzaj czynności, którą program ma wykonać. Do wyboru:
     "play" - aby zagrać manualnie, bez aktywacji bota;
     "bot" - aby uruchomić bota, który przejdzie całą planszę;
-    "reset" - aby zresetować mapę.
+    "reset" - aby zresetować świat.
     Nie podanie drugiego argumentu linii komend skutkuje wyświetleniem informacji o aktualnym stanie świata. */
 
     char *token;
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
             char *response;
             response = reset(token);
             free(response);
-            return 1;
+            return 0;
         }
         else if(strcmp(argv[2], "bot")==0){
             char *response;
