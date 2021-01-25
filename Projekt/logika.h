@@ -28,6 +28,10 @@ void reload_map(game *g, char *response);
 void reload_map_explore(game *g, char *response);
 
 void do_explore(game *g, char *token);
-void do_move(game *g, char *token);
+int do_move(game *g, char *token);
+void go_to_the_wall(game *g, char *token);
+void along_the_wall(game *g, char *token);
+void bot_explore(game *g, char *token);
+void bot(game *g, char *token);
 
 #endif

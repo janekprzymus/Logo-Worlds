@@ -18,3 +18,6 @@ reset: all
 
 play: all
 	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) play
+
+bot: all
+	./logo-worlds $(filter-out $@,$(MAKECMDGOALS)) bot

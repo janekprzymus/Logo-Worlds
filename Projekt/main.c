@@ -32,31 +32,31 @@ int main(int argc, char **argv)
                     response = info(token);
                     reload_map(gra, response);
 
-                    printf("Aktualne współrzędne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
+                    printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
                     printf("Kierunek czołgu: %s\n", gra->current_state->direction);
                 }
                 if(strcmp(komenda,s1)==0){
                     do_move(gra, token);
-                    printf("Aktualne współrzędne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
+                    printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
                     printf("Kierunek czołgu: %s\n", gra->current_state->direction);
                 }
                 else if(strcmp(komenda,s21)==0){
                     char *response;
                     response = rotate(token, "left");
                     reload_map(gra, response);
-                    printf("Aktualne współrzędne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
+                    printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
                     printf("Kierunek czołgu: %s\n", gra->current_state->direction);
                 }
                 else if(strcmp(komenda,s22)==0){
                     char *response;
                     response = rotate(token, "right");
                     reload_map(gra, response);
-                    printf("Aktualne współrzędne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
+                    printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
                     printf("Kierunek czołgu: %s\n", gra->current_state->direction);
                 }
                 else if(strcmp(komenda,s3)==0){
                     do_explore(gra, token);
-                    printf("Aktualne współrzędne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
+                    printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
                     printf("Kierunek czołgu: %s\n", gra->current_state->direction);
                 }
                 else if(strcmp(komenda,s4)==0){
@@ -77,8 +77,15 @@ int main(int argc, char **argv)
         else if(strcmp(argv[2], "reset")==0){
             char *response;
             response = reset(token);
+            free(response);
+            return 1;
+        }
+        else if(strcmp(argv[2], "bot")==0){
+            char *response;
+            response = reset(token);
             gra = init_game(token);
             free(response);
+            bot(gra, token);
         }
     }
     else
@@ -87,7 +94,7 @@ int main(int argc, char **argv)
         char *response;
         response = info(token);
         reload_map(gra, response);
-        printf("Aktualne współrzędne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
+        printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
         printf("Kierunek czołgu: %s\n", gra->current_state->direction);
     }
     

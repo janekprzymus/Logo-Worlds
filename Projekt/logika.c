@@ -141,8 +141,168 @@ void do_explore(game *g, char *token){
     reload_map_explore(g, response);
 }
 
-void do_move(game *g, char *token){
+int do_move(game *g, char *token){
+    int x = g->current_state->x;
+    int y = g->current_state->y;
+    
     char *response;
     response = move(token);
     reload_map(g, response);
+
+    if(strcmp(g->current_state->direction, "W")==0){
+        if(x == g->current_state->x){
+            g->world->plansza[what_is_y(g)][what_is_x(g)-1]='W';
+            write(g->world);
+            save(g->world);
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    else if(strcmp(g->current_state->direction, "E")==0){
+        if(x == g->current_state->x){
+            g->world->plansza[what_is_y(g)][what_is_x(g)+1]='W';
+            write(g->world);
+            save(g->world);
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    else if(strcmp(g->current_state->direction, "N")==0){
+        if(y == g->current_state->y){
+            g->world->plansza[what_is_y(g)+1][what_is_x(g)]='W';
+            write(g->world);
+            save(g->world);
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    else if(strcmp(g->current_state->direction, "S")==0){
+        if(y == g->current_state->y){
+            g->world->plansza[what_is_y(g)-1][what_is_x(g)]='W';
+            write(g->world);
+            save(g->world);
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+}
+
+void go_to_the_wall(game *g, char *token){
+    do_explore(g, token);
+    while(do_move(g, token)!=1)
+        do_explore(g, token);
+
+    char *response;
+    response = rotate(token, "right");
+    reload_map(g, response);
+}
+
+void along_the_wall(game *g, char *token){
+    do_explore(g, token);
+
+    if(strcmp(g->current_state->direction, "W")==0){
+        while(do_move(g,token)!=1 && (g->world->plansza[what_is_y(g)-1][what_is_x(g)]=='W')){
+            do_explore(g,token);
+        }
+    }   
+    if(strcmp(g->current_state->direction, "E")==0){
+        while(do_move(g,token)!=1 && (g->world->plansza[what_is_y(g)+1][what_is_x(g)]=='W')){
+            do_explore(g,token);
+        }
+    }    
+    if(strcmp(g->current_state->direction, "N")==0){
+        while(do_move(g,token)!=1 && (g->world->plansza[what_is_y(g)][what_is_x(g)-1]=='W')){
+            do_explore(g,token);
+        }
+    } 
+    if(strcmp(g->current_state->direction, "S")==0){
+        while(do_move(g,token)!=1 && (g->world->plansza[what_is_y(g)][what_is_x(g)+1]=='W')){
+            do_explore(g,token);
+        }
+    }
+}
+
+void bot_explore(game *g, char *token){
+    int a=0, b=0;
+    int x = g->current_state->x;
+    int y = g->current_state->y;
+    do_move(g, token);
+
+    while(g->current_state->x != g->world->x_start || g->current_state->y != g->world->y_start){
+        along_the_wall(g, token);
+        if(strcmp(g->current_state->direction, "E")==0){
+            if(g->world->plansza[what_is_y(g)+1][what_is_x(g)]!='W'){
+                char *response;
+                response = rotate(token, "left");
+                reload_map(g, response);
+                a--;
+            }
+            else
+            {
+                char *response;
+                response = rotate(token, "right");
+                reload_map(g, response);
+                a++;
+            }
+        }
+        else if(strcmp(g->current_state->direction, "W")==0){
+            if(g->world->plansza[what_is_y(g)-1][what_is_x(g)]!='W'){
+                char *response;
+                response = rotate(token, "left");
+                reload_map(g, response);
+                a--;
+            }
+            else
+            {
+                char *response;
+                response = rotate(token, "right");
+                reload_map(g, response);
+                a++; 
+            }
+        }
+        else if(strcmp(g->current_state->direction, "N")==0){
+            if(g->world->plansza[what_is_y(g)][what_is_x(g)-1]!='W'){
+                char *response;
+                response = rotate(token, "left");
+                reload_map(g, response);
+                a--;
+            }
+            else
+            {
+                char *response;
+                response = rotate(token, "right");
+                reload_map(g, response);
+                a++; 
+            }
+        }
+        else if(strcmp(g->current_state->direction, "S")==0){
+            if(g->world->plansza[what_is_y(g)][what_is_x(g)+1]!='W'){
+                char *response;
+                response = rotate(token, "left");
+                reload_map(g, response);
+                a--;
+            }
+            else
+            {
+                char *response;
+                response = rotate(token, "right");
+                reload_map(g, response);
+                a++; 
+            }
+        }
+    }
+    printf("%d\n",a);
+}
+
+void bot(game *g, char *token){
+    go_to_the_wall(g, token);
+    bot_explore(g, token);
 }

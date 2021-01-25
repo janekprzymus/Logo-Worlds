@@ -5,15 +5,15 @@ void write(map *m){
 
     for(i = m->wiersze-1; i>=0; i--){
         if(i==m->wiersze-1){
-            printf("  ");
+            printf("   ");
             for(j=0; j<m->kolumny; j++)
-                printf("%2d", j+1);
+                printf("%3d", j+1);
             printf("\n");
         }
         for(j=0; j<m->kolumny; j++){
             if(j==0)
-                printf("%2d", i+1);
-            printf("%2c", m->plansza[i][j]);
+                printf("%3d", i+1);
+            printf("%3c", m->plansza[i][j]);
         }
         printf("\n");
     }
