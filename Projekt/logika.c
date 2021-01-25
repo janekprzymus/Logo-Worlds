@@ -299,7 +299,6 @@ void bot_explore(game *g, char *token){
             }
         }
     }
-    printf("%d\n",a);
 }
 
 void bot(game *g, char *token){

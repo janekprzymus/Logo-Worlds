@@ -3,9 +3,12 @@
 int main(int argc, char **argv)
 {
     /* Program obługuje się poprzez podanie tokena świata jako pierwszy argument linii komend.
-    Następnie jeśli nie ma kolejnych argumentow - program wyświetla informacje o świecie.
-    Jeśli następne argumenty występują, w zaleznosci od nich program wykonuje dane polecenia:
-    ("M" - ruch, "Rleft" - obrot w lewo, "Rright" - obrot w prawo, "E" - eksploracja) */ 
+    Następnym argumentem będzie rodzaj czynności, którą program ma wykonać. Do wyboru:
+    "play" - aby zagrać manualnie, bez aktywacji bota;
+    "bot" - aby uruchomić bota, który przejdzie całą planszę;
+    "reset" - aby zresetować mapę.
+    Nie podanie drugiego argumentu linii komend skutkuje wyświetleniem informacji o aktualnym stanie świata. */
+
     char *token;
     char *s1="M";
     char *s21="Rleft";
