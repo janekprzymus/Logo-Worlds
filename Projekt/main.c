@@ -94,9 +94,6 @@ int main(int argc, char **argv)
     else
     {
         gra = init_game(token);
-        char *response;
-        response = info(token);
-        reload_map(gra, response);
         printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
         printf("Kierunek czołgu: %s\n", gra->current_state->direction);
     }
