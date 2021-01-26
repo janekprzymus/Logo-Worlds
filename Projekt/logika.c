@@ -105,6 +105,7 @@ game *init_game(char *token){
     map_refine(gra);
     write(gra->world);
     save(gra->world);
+    draw_map(gra->world);
 
     return gra;
 }
@@ -120,6 +121,7 @@ void reload_map(game *g, char *response){
 
     write(g->world);
     save(g->world);
+    draw_map(g->world);
 }
 
 void reload_map_explore(game *g, char *response){
@@ -133,6 +135,7 @@ void reload_map_explore(game *g, char *response){
 
     write(g->world);
     save(g->world);
+    draw_map(g->world);
 }
 
 void do_explore(game *g, char *token){
@@ -154,6 +157,7 @@ int do_move(game *g, char *token){
             g->world->plansza[what_is_y(g)][what_is_x(g)-1]='W';
             write(g->world);
             save(g->world);
+            draw_map(g->world);
             return 1;
         }
         else{
@@ -165,6 +169,7 @@ int do_move(game *g, char *token){
             g->world->plansza[what_is_y(g)][what_is_x(g)+1]='W';
             write(g->world);
             save(g->world);
+            draw_map(g->world);
             return 1;
         }
         else{
@@ -176,6 +181,7 @@ int do_move(game *g, char *token){
             g->world->plansza[what_is_y(g)+1][what_is_x(g)]='W';
             write(g->world);
             save(g->world);
+            draw_map(g->world);
             return 1;
         }
         else{
@@ -187,6 +193,7 @@ int do_move(game *g, char *token){
             g->world->plansza[what_is_y(g)-1][what_is_x(g)]='W';
             write(g->world);
             save(g->world);
+            draw_map(g->world);
             return 1;
         }
         else{

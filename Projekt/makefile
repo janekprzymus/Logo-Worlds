@@ -1,7 +1,7 @@
-PLIKI=main.o komunikacja.o response.o mapa.o logika.o
+PLIKI=main.o komunikacja.o response.o mapa.o logika.o ppng.o
 
 all: $(PLIKI)
-	gcc $(PLIKI) -lcurl -o logo-worlds ../../cJSON/cjson.o -Wall --pedantic
+	gcc $(PLIKI) -lcurl -lpng -o logo-worlds ../../cJSON/cjson.o -Wall --pedantic
 
 %.o:%.c
 	cc -c $^ -o $@

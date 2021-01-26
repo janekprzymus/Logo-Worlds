@@ -4,6 +4,7 @@
 #include "response.h"
 #include "komunikacja.h"
 #include "mapa.h"
+#include "ppng.h"
 
 typedef struct _game{
     current *current_state;
