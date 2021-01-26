@@ -2,13 +2,6 @@
 
 int main(int argc, char **argv)
 {
-    /* Program obługuje się poprzez podanie tokena świata jako pierwszy argument linii komend.
-    Następnym argumentem będzie rodzaj czynności, którą program ma wykonać. Do wyboru:
-    "play" - aby zagrać manualnie, bez aktywacji bota;
-    "bot" - aby uruchomić bota, który przejdzie całą planszę;
-    "reset" - aby zresetować świat.
-    Nie podanie drugiego argumentu linii komend skutkuje wyświetleniem informacji o aktualnym stanie świata. */
-
     char *token;
     char *s1="M";
     char *s21="Rleft";
@@ -34,7 +27,6 @@ int main(int argc, char **argv)
                     char *response;
                     response = info(token);
                     reload_map(gra, response);
-
                     printf("Aktualne współrzędne lokalne czołgu: x=%d, y=%d\n", what_is_x(gra)+1, what_is_y(gra)+1);
                     printf("Kierunek czołgu: %s\n", gra->current_state->direction);
                 }
@@ -98,7 +90,6 @@ int main(int argc, char **argv)
         printf("Kierunek czołgu: %s\n", gra->current_state->direction);
     }
     
-
     free_map(gra->world);
     //free(gra->token);
     free_game_state(gra->current_state);
