@@ -56,8 +56,7 @@ void alloc_map_memory(map *m, int wiersze, int kolumny){
     m->kolumny=kolumny;
     
     m->plansza = (char**) malloc(sizeof(char*) * wiersze);
-    for (int i=wiersze-1; i>=0; i--) 
-    {
+    for (int i=wiersze-1; i>=0; i--){
         m->plansza[i] = (char*) malloc(sizeof(char) * kolumny);
         for (int j=0; j<kolumny; j++){
             m->plansza[i][j] = j+1+i;
