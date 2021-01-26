@@ -90,7 +90,6 @@ int main(int argc, char **argv)
         printf("Kierunek czołgu: %s\n", gra->current_state->direction);
     }
     
-
     free_map(gra->world);
     //free(gra->token);
     free_game_state(gra->current_state);
