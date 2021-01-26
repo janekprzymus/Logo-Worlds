@@ -91,7 +91,6 @@ int main(int argc, char **argv)
     }
     
     free_map(gra->world);
-    //free(gra->token);
     free_game_state(gra->current_state);
     if(gra->fields_explore!=NULL)
         free_game_state_explore(gra->fields_explore);

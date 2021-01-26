@@ -23,23 +23,18 @@ void read_png_file(char *filename, int *width, int *height,
   *color_type = png_get_color_type(png, info);
   *bit_depth  = png_get_bit_depth(png, info);
 
-  // Read any color_type into 8bit depth, RGBA format.
-  // See http://www.libpng.org/pub/png/libpng-manual.txt
-
   if(*bit_depth == 16)
     png_set_strip_16(png);
 
   if(*color_type == PNG_COLOR_TYPE_PALETTE)
     png_set_palette_to_rgb(png);
 
-  // PNG_COLOR_TYPE_GRAY_ALPHA is always 8 or 16bit depth.
   if(*color_type == PNG_COLOR_TYPE_GRAY && *bit_depth < 8)
     png_set_expand_gray_1_2_4_to_8(png);
 
   if(png_get_valid(png, info, PNG_INFO_tRNS))
     png_set_tRNS_to_alpha(png);
 
-  // These color_type don't have an alpha channel then fill it with 0xff.
   if(*color_type == PNG_COLOR_TYPE_RGB ||
      *color_type == PNG_COLOR_TYPE_GRAY ||
      *color_type == PNG_COLOR_TYPE_PALETTE)
@@ -83,7 +78,6 @@ void write_png_file(char *filename, int width, int height,
 
   png_init_io(png, fp);
 
-  // Output is 8bit depth, RGBA format.
   png_set_IHDR(
     png,
     info,
@@ -95,10 +89,6 @@ void write_png_file(char *filename, int width, int height,
     PNG_FILTER_TYPE_DEFAULT
   );
   png_write_info(png, info);
-
-  // To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
-  // Use png_set_filler().
-  //png_set_filler(png, 0, PNG_FILLER_AFTER);
 
   if (!row_pointers) abort();
 
@@ -120,9 +110,7 @@ void process_png_file(int width, int height, png_bytep *row_pointers) {
     png_bytep row = row_pointers[y];
     for(int x = 0; x < width; x++) {
       png_bytep px = &(row[x * 4]);
-      // Do something awesome for each pixel here...
-      //printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
-      // px - wskazuje na skladowa R pixela o wspolrzednych x,y!
+
       (*px) = (int) (*px) * 0.75;
       *(px+1) = (int) (*(px+1)) * 0.75;
       *(px+2) = (int) (*(px+2)) * 0.75;

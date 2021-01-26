@@ -90,8 +90,6 @@ void map_refine_explore(game *g){
 game *init_game(char *token){
     game *gra = (game*) malloc(sizeof(game));
     gra->world = map_init(gra->world);
-    //gra->token = (char*) malloc(sizeof(char) * (strlen(token) + 1));
-    //gra->token = token;
     write(gra->world);
 
     char *response;

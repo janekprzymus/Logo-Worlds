@@ -10,7 +10,6 @@ typedef struct _game{
     current *current_state;
     fields3 *fields_explore;
     map *world;
-    //char *token;
 } game;
 
 int what_is_x(game *g);
