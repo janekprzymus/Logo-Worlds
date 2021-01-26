@@ -236,7 +236,7 @@ void along_the_wall(game *g, char *token){
 }
 
 void bot_explore(game *g, char *token){
-    int a=0, b=0;
+    int a=0;
     int x = g->current_state->x;
     int y = g->current_state->y;
     do_move(g, token);
