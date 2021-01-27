@@ -241,7 +241,7 @@ void bot_explore(game *g, char *token){
     int y = g->current_state->y;
     do_move(g, token);
 
-    while(g->current_state->x != g->world->x_start || g->current_state->y != g->world->y_start){
+    while(g->current_state->x != g->world->x_start || g->current_state->y != g->world->y_start || a<=3){
         along_the_wall(g, token);
         if(strcmp(g->current_state->direction, "E")==0){
             if(g->world->plansza[what_is_y(g)+1][what_is_x(g)]!='W'){
@@ -249,6 +249,7 @@ void bot_explore(game *g, char *token){
                 response = rotate(token, "left");
                 reload_map(g, response);
                 a--;
+                printf("a = %d\n", a);
             }
             else
             {
@@ -256,6 +257,7 @@ void bot_explore(game *g, char *token){
                 response = rotate(token, "right");
                 reload_map(g, response);
                 a++;
+                printf("a = %d\n", a);
             }
         }
         else if(strcmp(g->current_state->direction, "W")==0){
@@ -264,13 +266,15 @@ void bot_explore(game *g, char *token){
                 response = rotate(token, "left");
                 reload_map(g, response);
                 a--;
+                printf("a = %d\n", a);
             }
             else
             {
                 char *response;
                 response = rotate(token, "right");
                 reload_map(g, response);
-                a++; 
+                a++;
+                printf("a = %d\n", a);
             }
         }
         else if(strcmp(g->current_state->direction, "N")==0){
@@ -279,13 +283,15 @@ void bot_explore(game *g, char *token){
                 response = rotate(token, "left");
                 reload_map(g, response);
                 a--;
+                printf("a = %d\n", a);
             }
             else
             {
                 char *response;
                 response = rotate(token, "right");
                 reload_map(g, response);
-                a++; 
+                a++;
+                printf("a = %d\n", a);
             }
         }
         else if(strcmp(g->current_state->direction, "S")==0){
@@ -294,13 +300,15 @@ void bot_explore(game *g, char *token){
                 response = rotate(token, "left");
                 reload_map(g, response);
                 a--;
+                printf("a = %d\n", a);
             }
             else
             {
                 char *response;
                 response = rotate(token, "right");
                 reload_map(g, response);
-                a++; 
+                a++;
+                printf("a = %d\n", a);
             }
         }
     }
