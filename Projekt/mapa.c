@@ -35,22 +35,6 @@ void save(map *m){
     fclose(fout);
 }
 
-map *load(){
-    FILE *fin = fopen("plansza.txt", "r");
-    int i, j;
-    char bufor[99];
-    map *m;
-    fscanf(fin, "%d%d", &m->wiersze, &m->kolumny);
-    for(i = m->wiersze-1; i>=0; i--){
-        fgets(bufor, 100, fin);
-        for(j=0; j<m->kolumny; j++){
-            m->plansza[i][j]=bufor[j];
-        }
-    }
-    fclose(fin);
-    return m;
-}
-
 void alloc_map_memory(map *m, int wiersze, int kolumny){
     m->wiersze=wiersze;
     m->kolumny=kolumny;

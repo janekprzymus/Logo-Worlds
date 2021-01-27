@@ -110,7 +110,6 @@ game *init_game(char *token){
 
 void reload_map(game *g, char *response){
     free_game_state(g->current_state);
-    //g->world=wczytaj();
     g->current_state = read_response(response);
     free(response);
 
@@ -125,7 +124,6 @@ void reload_map(game *g, char *response){
 void reload_map_explore(game *g, char *response){
     if(g->fields_explore!=NULL)
         free_game_state_explore(g->fields_explore);
-    //g->world=wczytaj();
     g->fields_explore = read_response_explore(response);
     free(response);
 
@@ -239,7 +237,7 @@ void bot_explore(game *g, char *token){
     int a=0;
     do_move(g, token);
 
-    while(g->current_state->x != g->world->x_start || g->current_state->y != g->world->y_start || a<=3){
+    while(g->current_state->x != g->world->x_start || g->current_state->y != g->world->y_start || a < 3){
         along_the_wall(g, token);
         if(strcmp(g->current_state->direction, "E")==0){
             if(g->world->plansza[what_is_y(g)+1][what_is_x(g)]!='W'){

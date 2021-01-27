@@ -13,7 +13,6 @@ typedef struct _map{
 
 void write(map *m);
 void save(map *m);
-map *load();
 
 void alloc_map_memory(map *m, int wiersze, int kolumny);
 map *map_init(map *m);
